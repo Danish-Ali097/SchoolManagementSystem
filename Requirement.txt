@@ -1,0 +1,54 @@
+Design and Development of Online School Management Website
+Project Domain / Category
+Web Application
+Abstract/Introduction
+This project 
+is an Internet based school management site that enables school management to effectively organize school activities.
+ This web application will provide a centralized interface to management to monitor student’s status and manage financial fee 
+related issues. Separate interfaces with limited access features will be provided to the students and their parents to monitor their
+ progress in various subjects.
+
+Admin Interface will be used by school owner/management and its credentials will be shared with owner/management. Through this interface,
+ they can create/register various classes, and register the students in corresponding classes. Fee and subjects information for each class
+ will also be made through this interface. Afterwards, they will create User account for each student which will be shared with the
+ corresponding students/parents. On User Interface, each student can view his/her study progress in various subjects and other fee related
+ information. Students/parents can provide feedback through user interface regarding the progress in various tests/exams to the management.
+
+This website project will be developed using ASP.NET / PHP as the front end and SQL Server / MYSQL as a back-end.
+ The database will store all information about the students and various other school related information.
+Functional Requirements:
+
+
+########################################################################Requirements#######################################################
+
+1. The systems shall have two different views. i.e. Admin/School Owner View and User View.
+
+
+2. The system shall provide convenient interface for classes creation, subject registration, fee information and students registration.
+
+
+3. Admin User have full rights and can create user accounts for students. They can create, update or delete information of any class or student. They can also create individual accounts for the students.
+
+
+4. User/Student account have limited access features i.e. they can view only their own progress with limited interaction facility. Furthermore, they can also view school-wide announcements and other general information.
+
+
+5. The system shall be capable to provide an interface to the Owner to inform parents/student about their progress/results on regular basis through email/SMS.
+
+
+6. The system shall be capable to provide an interface to the Owner to contact pending fee students and send them reminder through email/SMS.
+
+
+7. The system shall be capable to provide an interface to the Owner to send custom message to inform all/selected parents/students about any activities or announcement through email/SMS.
+
+
+8. The system shall provide Password Recovery facility.
+
+
+9. The system should provide the interface to store the classes’ information, subject information and results information regarding various tests/exams.
+
+
+10. The search interface should be convenient to search and retrieve any student record.
+11. The system should store and display picture of each student.
+
+####################################################################End Requirements#######################################################

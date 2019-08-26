@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = null;
+}
+@model SchoolManagementSystem.Models.Student
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Student Portal | Welcome</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background:#24355C;">
+        <div class="container">
+            <a href="#" class="navbar-brand">School Management System</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar" aria-controls="Navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Index", "SMS", new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("About", "About", "SMS", new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Contact", "Contact", "SMS", new { @class = "nav-link" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <div class="container">
+            <h2 class="text-center display-4 mt-5 pt-3">Student Portal</h2>
+            @Html.ValidationSummary(true, " ", new { @class="red-text"})
+            @using (Html.BeginForm("StudentLogin", "SMS", FormMethod.Post, new { @class = "mt-5 mb-4", @style = "height:500px;" }))
+            {
+                <div class="md-form form-group mt-5">
+                    <i class="fas fa-user prefix"></i>
+                    @Html.LabelFor(m => m.Reg_No)
+                    @Html.TextBoxFor(m => m.Reg_No, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Reg_No,"", new { @class="red-text ml-5 mt-1"})
+                </div>
+                <div class="md-form form-group mt-5">
+                    <i class="fas fa-lock prefix"></i>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control"})
+                    @Html.LabelFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "red-text ml-5 mt-1" })
+                </div>
+                <button class="btn btn-primary">Login</button>
+                <p class="red-text">
+                    @ViewData["SlgnFailed"]
+                </p>
+            }
+        </div>
+    </section>
+    <footer class="page-footer unique-color-dark">
+        <!-- Social buttons -->
+        <div class="primary-color">
+            <div class="container">
+                <!--Grid row-->
+                <div class="row py-4 d-flex align-items-center">
+
+                    <!--Grid column-->
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                        <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                        <!--Facebook-->
+                        <a class="fb-ic ml-0">
+                            <i class="fab fa-facebook-f white-text mr-4"> </i>
+                        </a>
+                        <!--Twitter-->
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter white-text mr-4"> </i>
+                        </a>
+                        <!--Google +-->
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
+                        </a>
+                        <!--Linkedin-->
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in white-text mr-4"> </i>
+                        </a>
+                        <!--Instagram-->
+                        <a class="ins-ic">
+                            <i class="fab fa-instagram white-text mr-lg-4"> </i>
+                        </a>
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+            </div>
+        </div>
+        <!-- Social buttons -->
+        <div class="container-fluid mt-5 mb-4 text-center text-md-left">
+            <div class="row mt-3 d-flex justify-content-around">
+                <div class="col-md-4">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Company name</strong>
+                    </h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                        amet, consectetur adipisicing elit.
+                    </p>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-4">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Company name</strong>
+                    </h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                        amet, consectetur adipisicing elit.
+                    </p>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <!--Fourth column-->
+                <div class="col-md-2">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <strong>Contact</strong>
+                    </h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <i class="fas fa-home  mr-3"></i> New York, NY 10012, US
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> info@example.com
+                    </p>
+                    <p>
+                        <i class="fas fa-phone mr-3"></i> + 01 234 567 88
+                    </p>
+                    <p>
+                        <i class="fas fa-print mr-3"></i> + 01 234 567 89
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/Scripts/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
+    <!-- Validation -->
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

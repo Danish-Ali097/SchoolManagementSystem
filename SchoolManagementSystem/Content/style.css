@@ -1,0 +1,92 @@
+html,
+body,
+header,
+#intro {
+    height: 100%;
+}
+
+#intro {
+    background: url("https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#sidebar-toggler{
+    display:none;
+    height:35px;
+    width:35px;
+    text-align:center;
+}
+
+#sidebar-toggler:hover{
+    color:white;
+}
+
+#side-bar,#main-content{
+    position:absolute !important;
+}
+
+#side-bar {
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 2;
+    width: 240px !important;
+}
+
+#main-content {
+    max-height:100%;
+    overflow:auto !important;
+    margin: 0 !important;
+    padding-left: 240px;
+}
+
+/** toggleclass **/
+
+.sidebar-toggle{
+    left:0 !important;
+    transition:all 1s;
+}
+.maincontent-toggle {
+    padding-left: 240px !important;
+    transition: all 1s;
+}
+
+/** toggleclassEnds **/
+
+@media(max-width: 991px) {
+    #sidebar-toggler {
+        display: block;
+        position: fixed;
+        z-index: 3;
+    }
+
+    #side-bar {
+        position: absolute !important;
+        left: -240px; /*240px*/
+        transition: all 1s;
+    }
+
+    #main-content {
+        position: absolute !important;
+        padding-left: 0;
+        width: 100%;
+        transition: all 1s;
+    }
+}
+
+.top-nav-collapse {
+    background-color: #24355C;
+  }
+  @media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+  @media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
