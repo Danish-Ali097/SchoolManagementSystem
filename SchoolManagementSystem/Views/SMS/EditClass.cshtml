@@ -3,7 +3,7 @@
     Layout = null;
 }
 @using SchoolManagementSystem.Models
-@model IEnumerable<SchoolManagementSystem.Models.ParentClassSubjectModel>
+@model SchoolManagementSystem.Models.Class
 
 <!DOCTYPE html>
 
@@ -115,39 +115,54 @@
                 </nav>
                 <span class="p-2 rounded-circle blue-gradient" id="sidebar-toggler"> <i class="fas fa-arrow-right"></i> </span>
 
-                <!-- table-section -->
+                <!-- form-section -->
 
                 <section>
-                    <h2 class="text-center display-4 mt-5 pt-3">Subject List</h2>
+                    <h2 class="text-center display-4 mt-5 pt-3">Edit Class</h2>
                     <div class="col-md-12 col-lg-10 m-auto">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Subject_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Book_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Instructor_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Class_Id)</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Subject_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Book_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Instructor_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Class.Class_Name)</td>
-                                        <td>@Html.ActionLink("Edit", "EditSubject/" + item.Subject.Id, "SMS") | @Html.ActionLink("Delete", "DeleteSubject/" + item.Subject.Id, "SMS")</td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
+                        <form action="/SMS/EditClass" method="post">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Class_Name, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.Class_Name)
+                                @Html.ValidationMessageFor(m => m.Class_Name, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Class_Strength, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.Class_Strength)
+                                @Html.ValidationMessageFor(m => m.Class_Strength, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Designation, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.Designation)
+                                @Html.ValidationMessageFor(m => m.Designation, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.HomeRoomTeacher, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.HomeRoomTeacher)
+                                @Html.ValidationMessageFor(m => m.HomeRoomTeacher, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Admission_Fee, new { @class = "form-control", @type = "number" })
+                                @Html.LabelFor(m => m.Admission_Fee)
+                                @Html.ValidationMessageFor(m => m.Admission_Fee, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Tuition_Fee, new { @class = "form-control", @type = "number" })
+                                @Html.LabelFor(m => m.Tuition_Fee)
+                                @Html.ValidationMessageFor(m => m.Tuition_Fee, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <div class="md-form">
+                                @Html.TextBoxFor(m => m.Exam_Fee, new { @class = "form-control", @type = "number" })
+                                @Html.LabelFor(m => m.Exam_Fee)
+                                @Html.ValidationMessageFor(m => m.Exam_Fee, "", new { @class = "red-text ml-5" })
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Class</button>
+                        </form>
                     </div>
                 </section>
 
-                <!-- table section/ -->
+                <!-- form section/ -->
 
                 <footer class="page-footer unique-color-dark">
                     <!-- Social buttons -->

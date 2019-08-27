@@ -199,10 +199,10 @@ namespace SchoolManagementSystem.Controllers
                 //smtp
                 #region smtp
                 var senderEmail = new MailAddress("danishali20021996@gmail.com", "Danish");
-                var receiverEmail = new MailAddress(student.Email, "Receiver");
+                var receiverEmail = new MailAddress(student.Email, student.Std_Name);
                 var password = "da163998";
                 var sub = "Portal Username and Password";
-                var body = "Regno: "+student.Reg_No+"\nPassword: "+student.Password;
+                var body = "Regno: "+student.Reg_No+"\nPassword: "+student.Password+"\n Please Download your chalan from the student portal!";
                 var smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
@@ -221,6 +221,26 @@ namespace SchoolManagementSystem.Controllers
                     smtp.Send(mess);
                 }
                 #endregion
+                //smtp end
+
+                //Generate Challan
+                #region Generate Chalan
+                Fee chalan = new Fee();
+                chalan.Class_Id = student.Class_Id;
+                chalan.Student_Id = student.Id;
+                //geting fee detail from class
+                var Res = db.Classes.Find(chalan.Class_Id);
+                var tfee = Res.Admission_Fee + Res.Tuition_Fee + Res.Exam_Fee;
+
+                chalan.Total_Fee = tfee;
+                chalan.Generation_Date = System.DateTime.Now.Date;
+                chalan.Due_Date = System.DateTime.Now.AddDays(10).Date;
+
+                db.Fees.Add(chalan);
+                db.SaveChanges();
+                #endregion
+                //Generate ChallanEnd
+
                 var tmp = (Admin)Session["AdminLgnFlag"];
                 ViewData["admin"] = tmp;
                 ViewData["StudentAdded"] = "Successfully added!";
@@ -228,12 +248,104 @@ namespace SchoolManagementSystem.Controllers
                 model.ClassList = db.Classes.ToList<Class>();
                 return View(model);
 
-                //smtp end
+                
             }
             return RedirectToAction("Index");
+        }
 
+        //GetStudent
+        public ActionResult GetStudent()
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                return View(db.Students.ToList<Student>());
+            }
+            return RedirectToAction("Index");
+        }
 
+        //POST: GetStudent (for searching)
+        [HttpPost]
+        public ActionResult GetStudent(string regno)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                List<Student> res = db.Students.ToList<Student>();
+                List<Student> templist = new List<Student>();
+                foreach (var x in res)
+                {
+                    if(x.Reg_No.Equals(regno))
+                    {
+                        templist.Add(x);
+                    }
+                }
+                return View(templist);
+            }
+            return RedirectToAction("Index");
+        }
 
+        //EditStudent
+        public ActionResult EditStudent(int id)
+        {
+            if(Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                ParentStudentModel model = new ParentStudentModel();
+                model.ClassList = db.Classes.ToList<Class>();
+                model.Student = db.Students.Find(id);
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult EditStudent(ParentStudentModel model)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                Student std = new Student();
+                std = model.Student;
+                db.Entry(std).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("GetStudent");
+            }
+            return RedirectToAction("Index");
+        }
+        //DeleteStudent
+        public ActionResult DeleteStudent(int id)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                ParentStudentModel model = new ParentStudentModel();
+                Student std = new Student();
+                std = db.Students.Find(id);
+                model.Class = db.Classes.Find(std.Class_Id);
+                model.Student = std;
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult DeleteStudent(ParentStudentModel model)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                Student std = db.Students.Find(model.Student.Id);
+                db.Students.Remove(std);
+                db.SaveChanges();
+                return RedirectToAction("GetStudent");
+            }
+            return RedirectToAction("Index");
         }
         #endregion
 
@@ -278,7 +390,19 @@ namespace SchoolManagementSystem.Controllers
             {
                 var tmp = (Admin)Session["AdminLgnFlag"];
                 ViewData["admin"] = tmp;
-                return View(db.Subjects.ToList<Subject>());
+                List<Subject> list = new List<Subject>();
+                list = db.Subjects.ToList<Subject>();
+                List<ParentClassSubjectModel> modelList = new List<ParentClassSubjectModel>();
+
+                foreach(var x in list)
+                {
+                    ParentClassSubjectModel model = new ParentClassSubjectModel();
+                    model.Subject = x;
+                    model.Class = db.Classes.Find(x.Class_Id);
+                    modelList.Add(model);
+                }
+
+                return View(modelList);
             }
             return RedirectToAction("Index");
         }
@@ -407,14 +531,93 @@ namespace SchoolManagementSystem.Controllers
             {
                 var temp = (Admin)Session["AdminLgnFlag"];
                 ViewData["admin"] = temp;
+                //searching for class with the same id 
+                Class data = new Class();
+                data = db.Classes.Find(id);
+                if (data != null)
+                {
+                    return View(data); 
+                }else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        //POST: EditClass
+        [HttpPost]
+        public ActionResult EditClass(Class Class)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                db.Entry<Class>(Class).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("GetClass");
+            }
+            return RedirectToAction("Index");
+        }
+
+        //DeleteClass
+        public ActionResult DeleteClass(int id)
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                //searching for class with the same id 
+                Class data = new Class();
+                data = db.Classes.Find(id);
+                if (data != null)
+                {
+                    return View(data);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        //POST: DeleteClass
+        [HttpPost]
+        public ActionResult DeleteClass(Class Class)
+        {
+            if(Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                Class data = new Class();
+                data = db.Classes.Find(Class.Id);
+                if (data != null)
+                {
+                    db.Classes.Remove(data);
+                    db.SaveChanges();
+                    return RedirectToAction("GetClass");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        #endregion//class
+
+        #region Fee C.R.U.D
+        public ActionResult GenerateChallan()
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
 
                 return View();
             }
             return RedirectToAction("Index");
         }
-        //DeleteClass
-
-        #endregion//class
+        #endregion
 
         #endregion//admin
         //generate randon regno

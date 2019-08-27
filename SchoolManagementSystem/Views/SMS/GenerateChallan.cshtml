@@ -3,7 +3,7 @@
     Layout = null;
 }
 @using SchoolManagementSystem.Models
-@model IEnumerable<SchoolManagementSystem.Models.ParentClassSubjectModel>
+@model IEnumerable<SchoolManagementSystem.Models.Student>
 
 <!DOCTYPE html>
 
@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard | Add Student</title>
+    <title>Dashboard | Welcome</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -115,33 +115,28 @@
                 </nav>
                 <span class="p-2 rounded-circle blue-gradient" id="sidebar-toggler"> <i class="fas fa-arrow-right"></i> </span>
 
+
                 <!-- table-section -->
 
                 <section>
-                    <h2 class="text-center display-4 mt-5 pt-3">Subject List</h2>
                     <div class="col-md-12 col-lg-10 m-auto">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Subject_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Book_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Instructor_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Class_Id)</th>
-                                    <th></th>
+                                    <th>Reg #</th>
+                                    <th>Name</th>
+                                    <th>Class</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="max-height:400px; overflow:auto;">
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Subject_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Book_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Instructor_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Class.Class_Name)</td>
-                                        <td>@Html.ActionLink("Edit", "EditSubject/" + item.Subject.Id, "SMS") | @Html.ActionLink("Delete", "DeleteSubject/" + item.Subject.Id, "SMS")</td>
+                                        <td> @Html.DisplayFor(modelItem => item.Reg_No)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.Std_Name)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.Class_Id)</td>
                                     </tr>
                                 }
-
                             </tbody>
                         </table>
                     </div>

@@ -3,8 +3,7 @@
     Layout = null;
 }
 @using SchoolManagementSystem.Models
-@model IEnumerable<SchoolManagementSystem.Models.ParentClassSubjectModel>
-
+@model SchoolManagementSystem.Models.Class
 <!DOCTYPE html>
 
 <html lang="en">
@@ -12,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard | Add Student</title>
+    <title>Dashboard | Delete Class</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -118,32 +117,71 @@
                 <!-- table-section -->
 
                 <section>
-                    <h2 class="text-center display-4 mt-5 pt-3">Subject List</h2>
-                    <div class="col-md-12 col-lg-10 m-auto">
+                    <h2 class="text-center display-4 mt-5 pt-3">Delete Class</h2>
+                    <div class="col-md-12 col-lg-6 m-auto">
+                        @using (Html.BeginForm("DeleteClass", "SMS", FormMethod.Post))
+                        {
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Subject_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Book_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Instructor_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Class_Id)</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Subject_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Book_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Instructor_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Class.Class_Name)</td>
-                                        <td>@Html.ActionLink("Edit", "EditSubject/" + item.Subject.Id, "SMS") | @Html.ActionLink("Delete", "DeleteSubject/" + item.Subject.Id, "SMS")</td>
-                                    </tr>
-                                }
-
-                            </tbody>
+                            @Html.HiddenFor(m => m.Id)
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Class_Name)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Class_Name, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Class_Strength)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Class_Strength, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Designation)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.HomeRoomTeacher)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.HomeRoomTeacher, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Admission_Fee)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Admission_Fee, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Tuition_Fee)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Tuition_Fee, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Exam_Fee)
+                                </th>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Exam_Fee, new { @class = "form-control", @readonly = true })
+                                </td>
+                            </tr>
                         </table>
+                            <button class="btn btn-danger" type="submit">Yes, Delete it</button>
+                        }
                     </div>
                 </section>
 

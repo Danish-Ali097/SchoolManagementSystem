@@ -16,19 +16,19 @@ namespace SchoolManagementSystem.Models
     public partial class Class
     {
         public int Id { get; set; }
-        [Required,Display(Name="Class Name")]
+        [Required,Display(Name ="Class Name")]
         public string Class_Name { get; set; }
-        [Required,Display(Name = "HomeRoom Teacher Name")]
+        [Required, Display(Name ="Home Room Teacher")]
         public string HomeRoomTeacher { get; set; }
-        [Required,Display(Name = "Class Strength")]
+        [Required, Display(Name ="Class Strength")]
         public Nullable<int> Class_Strength { get; set; }
         [Required]
         public string Designation { get; set; }
-        [Required,Display(Name = "Admission Fee")]
+        [Required, Display(Name ="Admission Fee")]
         public Nullable<int> Admission_Fee { get; set; }
-        [Required,Display(Name = "Tuition Fee")]
+        [Required, Display(Name = "Tuition Fee")]
         public Nullable<int> Tuition_Fee { get; set; }
-        [Required,Display(Name = "Exam Fee")]
+        [Required, Display(Name = "Exam Fee")]
         public Nullable<int> Exam_Fee { get; set; }
     }
 }

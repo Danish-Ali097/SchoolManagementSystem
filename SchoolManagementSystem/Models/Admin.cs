@@ -17,9 +17,9 @@ namespace SchoolManagementSystem.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [Required(ErrorMessage = "Email is Required!")]
+        [Required]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Password is Required!")]
+        [Required]
         public string Password { get; set; }
     }
 }

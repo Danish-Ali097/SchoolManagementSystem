@@ -359,6 +359,12 @@
     <Content Include="Views\SMS\DeleteSubject.cshtml" />
     <Content Include="Views\SMS\AddClass.cshtml" />
     <Content Include="Views\SMS\GetClass.cshtml" />
+    <Content Include="Views\SMS\EditClass.cshtml" />
+    <Content Include="Views\SMS\DeleteClass.cshtml" />
+    <Content Include="Views\SMS\GetStudent.cshtml" />
+    <Content Include="Views\SMS\EditStudent.cshtml" />
+    <Content Include="Views\SMS\DeleteStudent.cshtml" />
+    <Content Include="Views\SMS\GenerateChallan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

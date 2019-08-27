@@ -3,7 +3,7 @@
     Layout = null;
 }
 @using SchoolManagementSystem.Models
-@model IEnumerable<SchoolManagementSystem.Models.ParentClassSubjectModel>
+@model IEnumerable<SchoolManagementSystem.Models.Student>
 
 <!DOCTYPE html>
 
@@ -118,15 +118,24 @@
                 <!-- table-section -->
 
                 <section>
-                    <h2 class="text-center display-4 mt-5 pt-3">Subject List</h2>
+                    
+                    <h2 class="text-center display-4 mt-5 pt-3">Student List</h2>
                     <div class="col-md-12 col-lg-10 m-auto">
+                        <form action="/SMS/GetStudent" method="post">
+                            <!-- Search form -->
+                            <div class="md-form mt-0 mr-0 form-inline">
+                                <input class="form-control" type="text" name="regno" placeholder="Search: Reg#" aria-label="Search">
+                            </div>
+                        </form>
+
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Subject_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Book_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Instructor_Name)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Subject.Class_Id)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Std_Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Father_Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Reg_No)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Contact_Number)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -134,11 +143,12 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Subject_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Book_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Subject.Instructor_Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Class.Class_Name)</td>
-                                        <td>@Html.ActionLink("Edit", "EditSubject/" + item.Subject.Id, "SMS") | @Html.ActionLink("Delete", "DeleteSubject/" + item.Subject.Id, "SMS")</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Std_Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Father_Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Reg_No)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Contact_Number)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                        <td>@Html.ActionLink("Edit", "EditStudent/" + item.Id, "SMS") | @Html.ActionLink("Delete", "DeleteStudent/" + item.Id, "SMS")</td>
                                     </tr>
                                 }
 
