@@ -3,7 +3,7 @@
     Layout = null;
 }
 @using SchoolManagementSystem.Models
-@model IEnumerable<SchoolManagementSystem.Models.Student>
+@model IEnumerable<SchoolManagementSystem.Models.ParentFeeModel>
 
 <!DOCTYPE html>
 
@@ -119,23 +119,28 @@
                 <!-- table-section -->
 
                 <section>
+                    @Html.ActionLink("Generate Challan", "GenerateAll", "SMS", new { @class="btn btn-primary" })
                     <div class="col-md-12 col-lg-10 m-auto">
-                        <table class="table">
+                        <table class="table" style="height:400px; max-height:400px; overflow:auto;">
                             <thead>
                                 <tr>
-                                    <th>Reg #</th>
-                                    <th>Name</th>
-                                    <th>Class</th>
+                                    <th>@Html.DisplayNameFor(m => m.Student.Std_Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Student.Father_Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Fee.Total_Fee)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Fee.Generation_Date)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Fee.Due_Date)</th>
                                 </tr>
                             </thead>
                             <tbody style="max-height:400px; overflow:auto;">
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td> @Html.DisplayFor(modelItem => item.Reg_No)</td>
-                                        <td> @Html.DisplayFor(modelItem => item.Std_Name)</td>
-                                        <td> @Html.DisplayFor(modelItem => item.Class_Id)</td>
-                                    </tr>
+                                <tr>
+                                    <td> @Html.DisplayFor(modelItem => item.Student.Std_Name)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.Student.Father_Name)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.Fee.Total_Fee)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.Fee.Generation_Date)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.Fee.Due_Date)</td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

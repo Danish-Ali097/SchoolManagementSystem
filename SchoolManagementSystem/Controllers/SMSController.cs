@@ -112,7 +112,7 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult StudentLogin(Student student)
         {
-            if (ModelState.IsValid)
+            if (student.Reg_No != null && student.Password != null)
             {
                 var res = db.Students.ToList();
                 var count = 0;
@@ -129,14 +129,23 @@ namespace SchoolManagementSystem.Controllers
                     Session.Add("StudentLgnFlag", student);
                     return RedirectToAction("StudentDashboard");
                 }
+                else
+                {
+                    ViewData["SlgnFailed"] = "Email or Password may Incorrect!";
+                    return View();
+                }
             }
             else
             {
+                ViewData["SlgnFailed"] = "Please Fill up all Fields";
                 return View();
             }
-            ViewData["SlgnFailed"] = "Email or Password may Incorrect!";
-            return View();
+            
         }
+        #endregion
+
+        #region Student Dashboard
+
 
         #endregion
 
@@ -612,11 +621,54 @@ namespace SchoolManagementSystem.Controllers
         {
             if (Session["AdminLgnFlag"] != null)
             {
-
-                return View();
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+                List<Fee> collection = new List<Fee>();
+                collection = db.Fees.ToList<Fee>();
+                List<ParentFeeModel> modelList = new List<ParentFeeModel>();    //model list
+                foreach (var item in collection)
+                {
+                    ParentFeeModel model = new ParentFeeModel();
+                    model.Fee = item;
+                    model.Class = db.Classes.Find(item.Class_Id);
+                    model.Student = db.Students.Find(item.Student_Id);
+                    modelList.Add(model);
+                }
+                return View(modelList);
             }
             return RedirectToAction("Index");
         }
+
+        //Generate Challan for all Students
+        public ActionResult GenerateAll()
+        {
+            if (Session["AdminLgnFlag"] != null)
+            {
+                var temp = (Admin)Session["AdminLgnFlag"];
+                ViewData["admin"] = temp;
+
+                List<Student> Slist = new List<Student>();
+                Slist = db.Students.ToList<Student>();
+                foreach(var x in Slist)
+                {
+                    Fee chalan = new Fee();
+                    chalan.Class_Id = x.Class_Id;
+                    chalan.Student_Id = x.Id;
+                    Class Class = new Class();
+                    Class = db.Classes.Find(x.Class_Id);
+                    chalan.Total_Fee = Class.Tuition_Fee;
+                    chalan.Generation_Date = System.DateTime.Now.Date;
+                    chalan.Due_Date = System.DateTime.Now.AddDays(10).Date;
+                    db.Fees.Add(chalan);
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("GenerateChallan");
+
+            }
+            return RedirectToAction("Index");
+        }
+
         #endregion
 
         #endregion//admin

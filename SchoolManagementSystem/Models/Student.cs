@@ -16,18 +16,17 @@ namespace SchoolManagementSystem.Models
     public partial class Student
     {
         public int Id { get; set; }
-        [Required, Display(Name = "Student Name")]
+        [Display(Name = "Student Name")]
         public string Std_Name { get; set; }
-        [Required, Display(Name = "Father Name")]
+        [Display(Name = "Father Name")]
         public string Father_Name { get; set; }
-        [Required, Range(minimum: 1, maximum: 100, ErrorMessage = "Age Should be Less then 100 and greater then 0")]
+        [Range(minimum: 1, maximum: 100, ErrorMessage = "Age Should be Less then 100 and greater then 0")]
         public Nullable<int> Age { get; set; }
-        [Required, StringLength(maximumLength: 200, ErrorMessage = "Maximum length 200 characters")]
+        [StringLength(maximumLength: 200, ErrorMessage = "Maximum length 200 characters")]
         public string Address { get; set; }
-        [Required,Display(Name ="Mobile Number"), RegularExpression(@"^([0]{1})+([3]{1})+([0-9]{9})$", ErrorMessage ="the number length should be 11 character format: 03xxxxxxxxx"),StringLength(maximumLength:11,ErrorMessage ="maximum length is 11")]
+        [Display(Name ="Mobile Number"), RegularExpression(@"^([0]{1})+([3]{1})+([0-9]{9})$", ErrorMessage ="the number length should be 11 character format: 03xxxxxxxxx"),StringLength(maximumLength:11,ErrorMessage ="maximum length is 11")]
         public string Contact_Number { get; set; }
         public string Reg_No { get; set; }
-        [Required]
         public string Email { get; set; }
         public string Password { get; set; }
         public Nullable<int> Class_Id { get; set; }

@@ -148,6 +148,7 @@
       <DependentUpon>schoolDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParentClassSubjectModel.cs" />
+    <Compile Include="Models\ParentFeeModel.cs" />
     <Compile Include="Models\ParentStudentModel.cs" />
     <Compile Include="Models\schoolDBModel.Context.cs">
       <AutoGen>True</AutoGen>
