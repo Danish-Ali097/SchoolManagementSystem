@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Rotativa;
 using SchoolManagementSystem.Models;
 
 namespace SchoolManagementSystem.Controllers
@@ -100,7 +101,7 @@ namespace SchoolManagementSystem.Controllers
 
         #endregion
 
-        #region Student Login
+        #region Student Login Logout
 
         // Student Login
         public ActionResult StudentLogin()
@@ -127,6 +128,7 @@ namespace SchoolManagementSystem.Controllers
                 if (count > 0)
                 {
                     Session.Add("StudentLgnFlag", student);
+                    ViewData["student"] = student;
                     return RedirectToAction("StudentDashboard");
                 }
                 else
@@ -142,10 +144,108 @@ namespace SchoolManagementSystem.Controllers
             }
             
         }
+
+        public ActionResult StudentLogout()
+        {
+            Session.Remove("StudentLgnFlag");
+            return RedirectToAction("Index");
+        }
+
         #endregion
 
         #region Student Dashboard
+        public ActionResult StudentDashboard()
+        {
+            if (Session["StudentLgnFlag"] != null)
+            {
+                var temp = (Student)Session["StudentLgnFlag"];
+                ViewData["student"] = temp;
+                ParentClassSubjectModel model = new ParentClassSubjectModel();
+                model.Class = db.Classes.Find(temp.Class_Id);
+                var res = from x in db.Subjects where x.Class_Id == model.Class.Id select x;
+                List<Subject> sublist = new List<Subject>();
 
+                foreach(var tmp in res)
+                {
+                    sublist.Add(tmp);
+                }
+                ViewData["SubjList"] = sublist;
+                return View(model); 
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ViewChalan()
+        {
+            if (Session["StudentLgnFlag"] !=null)
+            {
+                var temp = (Student)Session["StudentLgnFlag"];
+                ViewData["student"] = temp;
+                List<ParentFeeModel> fee = new List<ParentFeeModel>();
+                var result = from x in db.Fees where x.Student_Id==temp.Id select x;
+                result.Reverse<Fee>();
+                foreach(var x in result)
+                {
+                    ParentFeeModel tmp = new ParentFeeModel();
+                    tmp.Fee = x;
+
+                    Student tmpstd = new Student();
+                    tmpstd = db.Students.Find(x.Student_Id);
+
+                    tmp.Student = tmpstd;
+
+                    Class tmpcls = new Class();
+                    tmpcls = db.Classes.Find(x.Class_Id);
+
+                    tmp.Class = tmpcls;
+                    fee.Add(tmp);
+                }
+                return View(fee); 
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SaveChalan(int id)
+        {
+            ParentFeeModel model = new ParentFeeModel();
+            model.Fee = db.Fees.Find(id);
+            model.Class = db.Classes.Find(model.Fee.Class_Id);
+            model.Student = db.Students.Find(model.Fee.Student_Id);
+            ViewData["chalandata"] = model;
+            var report = new ViewAsPdf("SaveChalan") {
+                FileName = "FeeChallan["+model.Student.Std_Name+"]",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Portrait
+            };
+            return report;
+        }
+
+        public ActionResult StudentChangePassword()
+        {
+            if (Session["StudentLgnFlag"]!=null)
+            {
+                var temp = (Student)Session["StudentLgnFlag"];
+                ViewData["student"] = temp;
+                return View(); 
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult StudentChangePassword(string pass)
+        {
+            if (Session["StudentLgnFlag"] != null)
+            {
+                var temp = (Student)Session["StudentLgnFlag"];
+                ViewData["student"] = temp;
+                var std = db.Students.Find(temp.Id);
+                std.Password = pass;
+                db.Entry(std).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
 
         #endregion
 

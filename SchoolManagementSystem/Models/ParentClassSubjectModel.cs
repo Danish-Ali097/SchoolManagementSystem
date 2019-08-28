@@ -11,5 +11,6 @@ namespace SchoolManagementSystem.Models
         public Class Class { get; set; }
         public Subject Subject { get; set; }
         public IEnumerable<Class> ClassList { get; set; }
+        public IEnumerable<Subject> SubjectList { get; set; }
     }
 }

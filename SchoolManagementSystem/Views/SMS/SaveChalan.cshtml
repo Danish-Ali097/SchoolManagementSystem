@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+@using SchoolManagementSystem.Models
+@model SchoolManagementSystem.Models.ParentFeeModel
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>School Management System | Student Challan</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+<body>
+    @{ 
+        var chlnData = (ParentFeeModel)ViewData["chalandata"];
+        var latefee = chlnData.Fee.Total_Fee + 1000;
+    }
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="2">Name</td>
+                <td colspan="2">@chlnData.Student.Std_Name</td>
+            </tr>
+            <tr>
+                <td colspan="2">RegNo.</td>
+                <td colspan="2">@chlnData.Student.Reg_No</td>
+            </tr>
+            <tr>
+                <td colspan="2">Father Name</td>
+                <td colspan="2">@chlnData.Student.Father_Name</td>
+            </tr>
+            <tr>
+                <td>Issue Date</td>
+                <td>@chlnData.Fee.Generation_Date</td>
+                <td>Due Date</td>
+                <td>@chlnData.Fee.Due_Date</td>
+            </tr>
+            <tr>
+                <td>Total Fee</td>
+                <td>@chlnData.Fee.Total_Fee</td>
+                <td> Fee after Due Date</td>
+                <td>@latefee </td>
+            </tr>
+            <tr style="min-height:300px;">
+                <td colspan="2">
+                    <span> Cashier Sign __________________________</span>
+                </td>
+                <td colspan="2">
+                    <span> Cashier Stamp:</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/Scripts/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
+</body>
+</html>

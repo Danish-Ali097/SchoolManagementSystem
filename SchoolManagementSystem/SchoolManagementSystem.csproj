@@ -52,6 +52,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -239,6 +242,10 @@
     <Content Include="Models\schoolDBModel.edmx.diagram">
       <DependentUpon>schoolDBModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\addons\datatables-select.js" />
     <Content Include="Scripts\addons\datatables-select.min.js" />
     <Content Include="Scripts\addons\datatables.js" />
@@ -305,6 +312,7 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="packages.config" />
     <Content Include="scss\addons\_datatables-select.scss" />
     <Content Include="scss\addons\_datatables.scss" />
@@ -366,6 +374,10 @@
     <Content Include="Views\SMS\EditStudent.cshtml" />
     <Content Include="Views\SMS\DeleteStudent.cshtml" />
     <Content Include="Views\SMS\GenerateChallan.cshtml" />
+    <Content Include="Views\SMS\StudentDashboard.cshtml" />
+    <Content Include="Views\SMS\ViewChalan.cshtml" />
+    <Content Include="Views\SMS\SaveChalan.cshtml" />
+    <Content Include="Views\SMS\StudentChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
